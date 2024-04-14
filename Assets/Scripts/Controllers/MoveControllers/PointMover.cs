@@ -5,7 +5,8 @@ namespace Controllers.MoveControllers
     public class PointMover : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D rigidBody;
-        private readonly float _speed = 3.0f;
+        
+        public float Speed {get; set;}
 
         private void FixedUpdate()
         {
@@ -15,7 +16,7 @@ namespace Controllers.MoveControllers
         private void MoveRight()
         {
             var position = rigidBody.position;
-            var newPosition = new Vector2(position.x + _speed * Time.fixedDeltaTime, position.y);
+            var newPosition = new Vector2(position.x + Speed * Time.fixedDeltaTime, position.y);
             rigidBody.MovePosition(newPosition);
         }
     }

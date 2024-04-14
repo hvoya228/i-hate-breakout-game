@@ -6,9 +6,8 @@ namespace Controllers.MoveControllers
     {
         [SerializeField] private Rigidbody2D rigidBody;
         
-        private readonly float _speed = 100.0f;
-        private float _velocity;
-        private readonly float _smoothTime = 0.25f;
+        private readonly float _force = 25.0f;
+        private readonly float _drag = 0.1f;
 
         private void FixedUpdate()
         {
@@ -18,10 +17,15 @@ namespace Controllers.MoveControllers
         private void Move()
         {
             var moveVertical = Input.GetAxisRaw("Vertical");
-            var position = rigidBody.position;
-            var targetPosition = new Vector3(0, position.y + moveVertical * _speed * Time.fixedDeltaTime, 0);
-            var newPosition = Mathf.SmoothDamp(position.y, targetPosition.y, ref _velocity, _smoothTime);
-            rigidBody.MovePosition(new Vector2(rigidBody.position.x, newPosition));
+
+            if (Mathf.Abs(moveVertical) < 0.1f)
+            {
+                rigidBody.velocity = Vector2.Lerp(rigidBody.velocity, Vector2.zero, _drag);
+            }
+            else
+            {
+                rigidBody.AddForce(new Vector2(0, moveVertical * _force));
+            }
         }
     }
 }
