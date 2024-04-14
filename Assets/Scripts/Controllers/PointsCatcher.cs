@@ -7,12 +7,7 @@ namespace Controllers
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var poolAble = other.gameObject.GetComponent<IPoolAble>();
-
-            if (poolAble is not null)
-            {
-                poolAble.Reset();
-            }
+            other.gameObject.GetComponent<IPoolAble>()?.Reset();
         }
     }
 }

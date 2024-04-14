@@ -1,4 +1,5 @@
 ﻿using Controllers;
+using Models;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
