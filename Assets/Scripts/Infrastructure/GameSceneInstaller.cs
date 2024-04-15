@@ -1,4 +1,6 @@
-﻿using Controllers;
+﻿using Animation;
+using Controllers;
+using Pooling.Pools;
 using Spawners;
 using UnityEngine;
 using Zenject;
@@ -8,7 +10,11 @@ namespace Infrastructure
     public class GameSceneInstaller : MonoInstaller
     {
         [SerializeField] private GameObject scoreCounterPrefab;
-        [SerializeField] private PointsSpawner pointsSpawnerPrefab;
+        [SerializeField] private PointsSpawner pointsSpawner;
+        [SerializeField] private LevelFinisher levelFinisher;
+        [SerializeField] private PointDeathEffectPlayer pointDeathEffectPlayer;
+        
+        [SerializeField] private PointDeathEffectPool pointDeathEffectPool;
         
         public override void InstallBindings()
         {
@@ -19,7 +25,27 @@ namespace Infrastructure
             
             Container
                 .Bind<PointsSpawner>()
-                .FromInstance(pointsSpawnerPrefab)
+                .FromInstance(pointsSpawner)
+                .AsSingle();
+            
+            InstallPools();
+
+            Container
+                .Bind<LevelFinisher>()
+                .FromInstance(levelFinisher)
+                .AsSingle();
+
+            Container
+                .Bind<PointDeathEffectPlayer>()
+                .FromInstance(pointDeathEffectPlayer)
+                .AsSingle();
+        }
+
+        private void InstallPools()
+        {
+            Container
+                .Bind<PointDeathEffectPool>()
+                .FromInstance(pointDeathEffectPool)
                 .AsSingle();
         }
     }

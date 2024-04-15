@@ -18,6 +18,7 @@ namespace Spawners
         private ObjectPool<YellowPoint> _yellowPointsPool;
         private ObjectPool<RedPoint> _redPointsPool;
 
+        private Coroutine _spawnCoroutine;
         private int _lastSpawnPoint = -1;
 
         private void Awake()
@@ -29,7 +30,7 @@ namespace Spawners
         
         private void Start()
         {
-            StartCoroutine(SpawnCoroutine());
+            _spawnCoroutine = StartCoroutine(SpawnCoroutine());
         }
         
         private IEnumerator SpawnCoroutine()
@@ -68,6 +69,13 @@ namespace Spawners
                         break;
                 }
             }
+        }
+        
+        public void StopSpawning()
+        {
+            if (_spawnCoroutine == null) return;
+            StopCoroutine(_spawnCoroutine);
+            _spawnCoroutine = null;
         }
         
         private GreenPoint GetGreenPointObject()

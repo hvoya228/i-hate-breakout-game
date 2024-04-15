@@ -1,5 +1,6 @@
 ﻿using Loaders;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace UserInterfaceControllers.TextControllers
@@ -10,6 +11,8 @@ namespace UserInterfaceControllers.TextControllers
         [SerializeField] private string nextSceneAddress;
         
         private ScenesLoader _scenesLoader;
+        
+        public Text Text => GetComponent<Text>();
 
         [Inject]
         private void Construct(ScenesLoader scenesLoader)
