@@ -11,14 +11,19 @@ namespace Controllers
     public class LevelFinisher : MonoBehaviour
     {
         private PointsSpawner _pointsSpawner;
+        private Timer _timer;
         private PressKeyToContinueText _pressKeyToContinueText;
         
         public static Action OnGameOver;
 
         [Inject]
-        private void Construct(PointsSpawner pointsSpawner, PressKeyToContinueText pressKeyToContinueText)
+        private void Construct(
+            PointsSpawner pointsSpawner, 
+            Timer timer,
+            PressKeyToContinueText pressKeyToContinueText)
         {
             _pointsSpawner = pointsSpawner;
+            _timer = timer;
             _pressKeyToContinueText = pressKeyToContinueText;
         }
         
@@ -48,6 +53,7 @@ namespace Controllers
         private void InitializeGameOver()
         {
             OnGameOver?.Invoke();
+            _timer.StopTimer();
             _pointsSpawner.StopSpawning();
             ActivateExitButton();
         }

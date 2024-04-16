@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Controllers;
 using Controllers.MoveControllers;
 using Models;
 using Pooling;
 using UnityEngine;
+using Zenject;
 
 namespace Spawners
 {
@@ -20,6 +22,14 @@ namespace Spawners
 
         private Coroutine _spawnCoroutine;
         private int _lastSpawnPoint = -1;
+        
+        private PointsSpeedSetter _pointsSpeedSetter;
+        
+        [Inject]
+        private void Construct(PointsSpeedSetter pointsSpeedSetter)
+        {
+            _pointsSpeedSetter = pointsSpeedSetter;
+        }
 
         private void Awake()
         {
@@ -37,7 +47,7 @@ namespace Spawners
         {
             while (true)
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(_pointsSpeedSetter.PointsSpawnSpeed);
                 
                 var randomPoint = Random.Range(0, 3);
                 var randomSpawnPoint = Random.Range(0, spawnPoints.Count);
