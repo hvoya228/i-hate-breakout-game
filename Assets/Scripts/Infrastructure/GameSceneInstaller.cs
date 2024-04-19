@@ -15,7 +15,9 @@ namespace Infrastructure
         [SerializeField] private LevelStarter levelStarter;
         [SerializeField] private PointDeathEffectPlayer pointDeathEffectPlayer;
         [SerializeField] private Timer timer;
-        [SerializeField] private PointsSpeedSetter pointsSpeedSetter;
+        
+        [SerializeField] private GameObject pointsSpeedSetterPrefab;
+        [SerializeField] private GameObject pointsSpawnSpeedSetterPrefab;
         
         [SerializeField] private PointDeathEffectPool pointDeathEffectPool;
         
@@ -33,7 +35,12 @@ namespace Infrastructure
             
             Container
                 .Bind<PointsSpeedSetter>()
-                .FromInstance(pointsSpeedSetter)
+                .FromComponentInNewPrefab(pointsSpeedSetterPrefab)
+                .AsSingle();
+            
+            Container
+                .Bind<PointsSpawnSpeedSetter>()
+                .FromComponentInNewPrefab(pointsSpawnSpeedSetterPrefab)
                 .AsSingle();
             
             InstallPools();

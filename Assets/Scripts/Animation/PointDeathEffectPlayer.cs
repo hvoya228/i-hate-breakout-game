@@ -21,16 +21,16 @@ namespace Animation
 
         private void OnEnable()
         {
-            GreenPoint.OnKilled += PlayGreen;
-            RedPoint.OnKilled += PlayRed;
-            YellowPoint.OnKilled += PlayYellow;
+            GreenPoint.OnPickedWithPosition += PlayGreen;
+            RedPoint.OnPickedWithPosition += PlayRed;
+            YellowPoint.OnPickedWithPosition += PlayYellow;
         }
         
         private void OnDisable()
         {
-            GreenPoint.OnKilled -= PlayGreen;
-            RedPoint.OnKilled -= PlayRed;
-            YellowPoint.OnKilled -= PlayYellow;
+            GreenPoint.OnPickedWithPosition -= PlayGreen;
+            RedPoint.OnPickedWithPosition -= PlayRed;
+            YellowPoint.OnPickedWithPosition -= PlayYellow;
         }
 
         private void PlayGreen(Vector2 position)

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Constants;
 using Controllers;
 using Controllers.MoveControllers;
 using Models;
@@ -24,11 +25,13 @@ namespace Spawners
         private int _lastSpawnPoint = -1;
         
         private PointsSpeedSetter _pointsSpeedSetter;
+        private PointsSpawnSpeedSetter _pointsSpawnSpeedSetter;
         
         [Inject]
-        private void Construct(PointsSpeedSetter pointsSpeedSetter)
+        private void Construct(PointsSpeedSetter pointsSpeedSetter, PointsSpawnSpeedSetter pointsSpawnSpeedSetter)
         {
             _pointsSpeedSetter = pointsSpeedSetter;
+            _pointsSpawnSpeedSetter = pointsSpawnSpeedSetter;
         }
 
         private void Awake()
@@ -47,11 +50,11 @@ namespace Spawners
         {
             while (true)
             {
-                yield return new WaitForSeconds(_pointsSpeedSetter.PointsSpawnSpeed);
+                yield return new WaitForSeconds(_pointsSpawnSpeedSetter.SpawnSpeed);
+                var randomPointSpeed = Random.Range(PointsSpeed.StartSpeed, _pointsSpeedSetter.Speed);
                 
                 var randomPoint = Random.Range(0, 3);
                 var randomSpawnPoint = Random.Range(0, spawnPoints.Count);
-                var randomPointSpeed = Random.Range(2f, 5f);
                 
                 while (randomSpawnPoint == _lastSpawnPoint)
                 {

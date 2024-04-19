@@ -12,7 +12,7 @@ namespace Models
         
         public event Action<IPoolAble> OnDestroyed;
         public static event Action OnPicked;
-        public static event Action<Vector2> OnKilled; 
+        public static event Action<Vector2> OnPickedWithPosition; 
         
         private void OnEnable()
         {
@@ -26,13 +26,13 @@ namespace Models
         
         public void Pick()
         {
+            OnPickedWithPosition?.Invoke(transform.position);
             OnPicked?.Invoke();
             Reset();
         }
         
         public void Reset()
         {
-            OnKilled?.Invoke(transform.position);
             OnDestroyed?.Invoke(this);
         }
     }

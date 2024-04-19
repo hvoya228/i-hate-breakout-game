@@ -29,7 +29,7 @@ namespace UserInterfaceControllers.TextControllers
         private void SetGreenPointInfo()
         {
             pickedPointInfoText.color = greenPointColor;
-            pickedPointInfoText.text = "+5";
+            pickedPointInfoText.text = "+1";
         }
         
         private void SetYellowPointInfo()

@@ -4,36 +4,36 @@ using Zenject;
 
 namespace Controllers
 {
-    public class PointsSpeedSetter : MonoBehaviour
+    public class PointsSpawnSpeedSetter : MonoBehaviour
     {
         private ScoreCounter _scoreCounter;
         
-        public float Speed { get; private set; }
+        public float SpawnSpeed { get; private set; }
         
         [Inject]
         private void Construct(ScoreCounter scoreCounter)
         {
             _scoreCounter = scoreCounter;
         }
-
+        
         private void Start()
         {
-            Speed = PointsSpeed.StartSpeed;
+            SpawnSpeed = PointsSpawnSpeed.StartSpawnSpeed;
         }
-
+        
         private void OnEnable()
         {
-            _scoreCounter.OnProgressChanged += IncreasePointsSpeed;
+            _scoreCounter.OnProgressChanged += IncreasePointsSpawnSpeed;
         }
         
         private void OnDisable()
         {
-            _scoreCounter.OnProgressChanged -= IncreasePointsSpeed;
+            _scoreCounter.OnProgressChanged -= IncreasePointsSpawnSpeed;
         }
-
-        private void IncreasePointsSpeed()
+        
+        private void IncreasePointsSpawnSpeed()
         {
-            Speed += 0.2f;
+            SpawnSpeed -= 0.2f;
         }
     }
 }
